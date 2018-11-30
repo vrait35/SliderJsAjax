@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="cssSliderAjax.css">
+	<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+</head>
+<body>
+<script type="text/javascript">
+	
+xhr=new XMLHttpRequest();
+		xhr.open("GET","dzAjaxJs.txt",true);
+		xhr.send();
+b=[];
+		xhr.onreadystatechange=function(){			
+			if(xhr.readyState==4){				
+				//console.log(xhr.response);			
+				a=JSON.parse(xhr.response.toString());				
+				a.lists.forEach(function(item,i,arr){															          b[i]=item.src; 	
+				$("#spinner").append('<img src="'+item.src+'">'); 	                      
+				});				
+			}
+			console.log(xhr.readyState);
+
+		}
+		console.log(b[0]);
+  
+
+</script>
+<base href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/wanaka-tree.jpg">
+<div id="carousel">
+  <figure id="spinner">
+    
+  </figure>
+</div>
+<span style="float:left" class="ss-icon" onclick="galleryspin('-')">&lt;</span>
+<span style="float:right" class="ss-icon" onclick="galleryspin('')">&gt;</span>
+
+	<script type="text/javascript">
+	var angle = 0;
+function galleryspin(sign) { 
+spinner = document.querySelector("#spinner");
+if (!sign) { angle = angle + 45; } else { angle = angle - 45; }
+spinner.setAttribute("style","-webkit-transform: rotateY("+ angle +"deg); -moz-transform: rotateY("+ angle +"deg); transform: rotateY("+ angle +"deg);");
+}
+	</script>
+</body>
+</html>
